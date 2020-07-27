@@ -5,9 +5,80 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #fafafa;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button{
+  margin: 10px;
+}
+
+.card-image{
+  margin-top: 32px;
+  max-height: 400px;
+  overflow:hidden;
+}
+
+.notifications{
+  margin-top: 32px;
+  margin-right: 108px;
+}
+
+.name-notifications{
+  font-weight: bold;
+}
+
+.boy-name{
+  font-weight: bold;
+}
+
+.title-sub-notifications{
+  font-weight: bold;
+}
+
+.boy-section{
+  margin-left: 32px;
+}
+.carousel{
+  margin-top: 32px;
+}
+
+.change-profile-picture{
+  margin-top:16px;
+}
+
+.intro-text{
+  font-weight: bold;
+  margin-top: 100px;
+}
+
+.Matches{
+  margin-top: 32px;
+}
+
+.Conversations{
+  margin-top: 32px;
+}
+
+form, table{
+  padding: 20px;
+  margin-top: 32px;
+}
+
+form button, form h5{
+  margin: 20px 0;
+}
+
+h6{
+  padding: 20px;
+}
+
+/*
+form button, form h5{
+  margin: 20px 0;
+}
+*/
