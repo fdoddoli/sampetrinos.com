@@ -7,6 +7,7 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import ProfileDetails from "./components/Profile/ProfileDetails";
 import { connect } from "react-redux";
+import LandingPage from "./components/layout/LandingPage";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
           <Navbar />
           <Switch>
             {dashboard}
+            <Route exact path="/" component={LandingPage} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
             <Route path="/profile-details" component={ProfileDetails} />

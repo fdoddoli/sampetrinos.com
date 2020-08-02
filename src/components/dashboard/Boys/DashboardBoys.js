@@ -6,6 +6,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Chat from "../chat/chat";
 import { updateLastSeenBoy } from "../../../store/actions/chatActions";
+import { likeGirl, deleteMatch } from "../../../store/actions/boyActions";
 
 class DashboardBoys extends Component {
   state = {
@@ -106,6 +107,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    likeGirl: (myFutureMatch) => dispatch(likeGirl(myFutureMatch)),
+    deleteMatch: (matchIWantToDelete) =>
+      dispatch(deleteMatch(matchIWantToDelete)),
     updateLastSeenBoy: (convID) => dispatch(updateLastSeenBoy(convID)),
   };
 };

@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Typography from "./common/typography";
 import Box from "./common/box";
-import {
-  sendMessage,
-  getMessages,
-  watchTaskRemovedEvent,
-  watchTaskAddedEvent,
-} from "../../../store/actions/chatActions";
+import { sendMessage } from "../../../store/actions/chatActions";
 import { connect } from "react-redux";
 import { MdSend, MdClear, MdCancel, MdDone } from "react-icons/md";
 import Avatar from "./common/avatar";
@@ -24,6 +19,7 @@ import {
   ActionButton,
   Form,
 } from "./elements";
+import firebase from "firebase";
 
 // function updateScroll() {
 //   var element = document.getElementById("scrollbottom");
@@ -36,20 +32,49 @@ class ChatContent extends Component {
     messages: [],
   };
 
-  componentDidMount = async () => {
-    const { chat } = this.props;
-    await this.props.getMessages(chat);
-  };
+  // componentDidMount = async () => {
+  //   const { chat } = this.props;
+  //   await this.props.getMessages(chat);
+  // };
 
-  componentDidUpdate = async () => {
+  // componentDidUpdate = async () => {
+  //   const { chat } = this.props;
+  //   await this.props.getMessages(chat);
+  // };
+
+  componentWillMount() {
     const { chat } = this.props;
-    await this.props.getMessages(chat);
-  };
+    const username = localStorage.getItem("chat_username");
+    this.setState({ username: username ? username : "Unknown" });
+    const messagesRef = firebase
+      .database()
+      .ref(`/messages/${chat}`)
+      .limitToLast(100);
+
+    messagesRef.on("value", (snapshot) => {
+      let messagesObj = snapshot.val();
+      let messages = [];
+      if (messagesObj !== null) {
+        Object.keys(messagesObj).forEach((key) =>
+          messages.push(messagesObj[key])
+        );
+        messages = messages.map((message) => {
+          return {
+            message: message.message,
+            sender: message.sender,
+            id: message.id,
+            timestamp: message.timestamp,
+          };
+        });
+        this.setState((prevState) => ({
+          messages: messages,
+        }));
+      }
+    });
+  }
 
   setRef = (ref) => {
-    const { messages } = this.props;
     if (ref) {
-      console.log(messages);
       // eslint-disable-next-line no-param-reassign
       ref.scrollTop = ref.scrollHeight;
     }
@@ -66,8 +91,8 @@ class ChatContent extends Component {
   };
 
   render() {
-    const { user, closeChat, messages, profile, chat } = this.props;
-    const { message } = this.state;
+    const { user, closeChat, profile, chat } = this.props;
+    const { message, messages } = this.state;
     let action;
     if (chat.status === "Interviewing") {
       action = (
@@ -123,17 +148,20 @@ class ChatContent extends Component {
             <MessagesContainer>
               {messages &&
                 // eslint-disable-next-line no-shadow
-                messages.map(({ id, message, timestamp, sender }) => (
-                  <Message
-                    otherProfileImg={user.imgFileURL}
-                    key={id}
-                    message={message}
-                    sentAt={timestamp}
-                    seenAt={message}
-                    isYours={profile.userID === sender}
-                    yourPic={profile.imgFileURL}
-                  />
-                ))}
+                messages.map(({ id, message, timestamp, sender }) => {
+                  this.setRef();
+                  return (
+                    <Message
+                      otherProfileImg={user.imgFileURL}
+                      key={id}
+                      message={message}
+                      sentAt={timestamp}
+                      seenAt={message}
+                      isYours={profile.userID === sender}
+                      yourPic={profile.imgFileURL}
+                    />
+                  );
+                })}
             </MessagesContainer>
           </Scroll>
           <WhiteBox height={60} bottom="0">
@@ -185,10 +213,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMessages: (convID) => dispatch(getMessages(convID)),
     sendMessage: (activity, convID) => dispatch(sendMessage(activity, convID)),
-    watchTaskAddedEvent: (convID) => dispatch(watchTaskAddedEvent(convID)),
-    watchTaskRemovedEvent: (convID) => dispatch(watchTaskRemovedEvent(convID)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChatContent);

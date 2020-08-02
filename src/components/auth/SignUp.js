@@ -26,11 +26,11 @@ class SignUp extends Component{
 
     render(){
         const {auth, authError} = this.props;
-        if(auth.uid) return <Redirect to='/'/>
+        if(auth.uid) return <Redirect to='/dashboard'/>
         return(
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
-                    <h5 className="grey-text text-darken-3">Sign Up</h5>
+                    <h5 className="blue-grey-text text-darken-4">Sign Up</h5>
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
                         <input type="text" id="firstName" onChange={this.handleChange}/>
@@ -40,7 +40,7 @@ class SignUp extends Component{
                         <input type="text" id="lastName" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="lastName">Gender: Male or Female</label>
+                        <label htmlFor="gender">Gender: Male or Female</label>
                         <input type="text" id="gender" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
@@ -52,7 +52,7 @@ class SignUp extends Component{
                         <input type="password" id="password" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <button className="btn black z-depth-0">Sign Up</button>
+                        <button className="btn button-blue blue-hover z-depth-0">Sign Up</button>
                         <div className="red-text text-accent-3 center">
                             { authError ? <p>{authError}</p> : null }
                         </div>

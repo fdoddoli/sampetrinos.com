@@ -8,6 +8,7 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import Chat from "../chat/chat";
 import { left } from "styled-system";
+import firebase from "firebase";
 import { updateLastSeenGirl } from "../../../store/actions/chatActions";
 
 class DashboardGirls extends Component {
@@ -19,11 +20,12 @@ class DashboardGirls extends Component {
     actualChat: null,
   };
 
-  setActualChat = (idx, userID) => {
+  setActualChat = async (idx, userID) => {
     const { matches } = this.props;
     if (idx === -1) {
       this.setState({ actualChat: null });
     } else {
+      await this.setState({ actualChat: null });
       this.setState({ actualChat: matches[idx] });
       this.props.updateLastSeenGirl(matches[idx].id);
     }

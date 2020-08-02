@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #fafafa;
+  background:#f7f7f7;
 }
 
 code {
@@ -16,6 +16,45 @@ code {
 button{
   margin: 10px;
 }
+
+.blue-color-background{
+  background: #3B5998;
+}
+
+.blue-color-accent{
+  color:#3B5998;
+}
+
+.blue-color-accent2{
+  color:#8B9DC3;
+}
+
+.logo{
+  margin-left: 12px;
+}
+
+form h5, h5{
+  font-weight: bold;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-color:  #8B9DC3;
+  box-shadow: none;
+}
+
+.button-blue{
+  background: #8B9DC3;
+}
+
+.blue-hover:hover{
+  background: #8B9DC3;
+}
+
+
+
 
 .card-image{
   margin-top: 32px;
@@ -40,15 +79,29 @@ button{
   font-weight: bold;
 }
 
+.bold{
+  font-weight: bold;
+}
+
+
 .boy-section{
   margin-left: 32px;
 }
+
+.dashboard-girl{
+  margin-top: 32px;
+}
+
 .carousel{
   margin-top: 32px;
 }
 
 .change-profile-picture{
   margin-top:16px;
+}
+
+.margin-right-icon{
+  margin-right: 8px;
 }
 
 .intro-text{
@@ -64,6 +117,7 @@ button{
   margin-top: 32px;
 }
 
+
 form, table{
   padding: 20px;
   margin-top: 32px;
@@ -76,6 +130,23 @@ form button, form h5{
 h6{
   padding: 20px;
 }
+
+.title-landing-page{
+  margin-top: 64px;
+}
+
+.text-landing-page {
+  margin-bottom: -20px;
+}
+
+.header{
+  margin-top: 32px;
+}
+
+.usage, .action{
+  margin-top: 32px;
+}
+
 
 /*
 form button, form h5{
