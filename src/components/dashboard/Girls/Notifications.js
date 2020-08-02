@@ -23,7 +23,7 @@ class Notifications extends Component {
     const matchList = matchLikeLength ? (
       matches.map(({ idUserBoy, idUserGirl, lastMessage }, idx) => {
         if (idUserGirl === profile.userID && lastMessage === "") {
-          if (users[idUserGirl] !== undefined)
+          if (users[idUserBoy] !== undefined)
             return (
               <div class="collection" onClick={() => openChat(idx)}>
                 <a
@@ -85,7 +85,7 @@ class Notifications extends Component {
                     if (lastSeenG < lMessageTimeB) {
                       action = <span class=" new badge red accent-3">1</span>;
                     }
-                    if (users[idUserGirl] !== undefined)
+                    if (users[idUserBoy] !== undefined)
                       return (
                         <a
                           href="#!"
