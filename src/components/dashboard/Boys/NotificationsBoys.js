@@ -9,8 +9,9 @@ class Notifications extends Component{
         window.M.Collapsible.init(elems, options);
     }
     
+    
     render(){
-        
+
         const likeListLength = this.props.girlsWhoLikeMe.length;
         const matchLikeLength = this.props.girlsWhoMatchWithMe.length;
         
@@ -18,7 +19,7 @@ class Notifications extends Component{
             this.props.girlsWhoLikeMe.map(like => {
                 return(
                     <div class="collection">
-                        <a href="#!" class="collection-item notification-item avatar black-text">
+                        <a href="#!" class="collection-item notification-item avatar black-text" onClick={() => this.props.handleClickShowGirlWhoLikedUser(like)}>
                             <img className="circle" src={like.imgFileURL}/>
                             <p className="name-notifications">{like.firstName}</p> 
                         </a>
@@ -60,7 +61,7 @@ class Notifications extends Component{
                             <div class="collapsible-header">
                             <i class="material-icons">favorite</i>
                             See who liked you
-                            <span class="badge red accent-3 white-text">{likeListLength}</span></div>
+                            <span class="badge button-blue white-text">{likeListLength}</span></div>
                             <div class="collapsible-body">
                                 {likeList}
                             </div>
@@ -76,7 +77,7 @@ class Notifications extends Component{
                             <div class="collapsible-header">
                             <i class="material-icons">people</i>
                             Check my matches
-                            <span class="badge red accent-3 white-text">{matchLikeLength}</span></div>
+                            <span class="badge button-blue white-text">{matchLikeLength}</span></div>
                             <div class="collapsible-body">
                                 {matchList}
                             </div>
@@ -89,25 +90,25 @@ class Notifications extends Component{
                         <div class="collection">
                             <a href="#!" class="collection-item notification-item avatar black-text">
                                 <img className="circle" src="/img/test.JPG"/>
-                                <span class=" new badge red accent-3">1</span>
+                                <span class="badge button-blue white-text">1</span>
                                 <p className="name-notifications">Alan</p>
                                 <p className="grey-text">hahahaha sí</p>
                             </a>
-                            <a href="#!" class="collection-item notification-item avatar black-text">
+                            <a href="#!" className="collection-item notification-item avatar black-text">
                                 <img className="circle" src="/img/test.JPG"/>
-                                <span class=" new badge red accent-3">3</span>
+                                <span className="badge button-blue white-text">3</span>
                                 <p className="name-notifications">Alan</p>
                                 <p className="grey-text">hahahaha sí</p>
                             </a>
-                            <a href="#!" class="collection-item notification-item avatar black-text">
+                            <a href="#!" className="collection-item notification-item avatar black-text">
                                 <img className="circle" src="/img/test.JPG"/>
-                                <span class=" new badge red accent-3">5</span>
+                                <span className="badge button-blue white-text">5</span>
                                 <p className="name-notifications">Alan</p>
                                 <p className="grey-text">hahahaha sí</p>
                             </a>
-                            <a href="#!" class="collection-item notification-item avatar black-text">
+                            <a href="#!" className="collection-item notification-item avatar black-text">
                                 <img className="circle" src="/img/test.JPG"/>
-                                <span class=" new badge red accent-3">2</span>
+                                <span className="badge button-blue white-text">2</span>
                                 <p className="name-notifications">Alan</p>
                                 <p className="grey-text">hahahaha sí</p>
                             </a>

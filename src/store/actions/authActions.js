@@ -36,9 +36,11 @@ export const signUp = (newUser) => {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 gender: newUser.gender,
-                imgFileURL: 'https://firebasestorage.googleapis.com/v0/b/sampetrinos.appspot.com/o/images%2F2d7afe87-0e82-4aab-a540-dd3c91076abf.png?alt=media&token=f3a0a088-7172-43d1-bf6b-937d47ef0197',
-                initials: newUser.firstName[0] + newUser.lastName[0],
-
+                imgFileURL: 'https://firebasestorage.googleapis.com/v0/b/sampetrinos.appspot.com/o/images%2F6b8d7108-bc99-40b0-900d-9cfbdf1a0401.png?alt=media&token=41eb2c57-df81-494c-b17a-77201c701694',
+                aboutMe: '',
+                school: '',
+                //boysNotToDisplay: [{id: '', firstName:'', lastName:'', gender:'', imgFileURL:'', aboutMe:'', school:''}],
+                initials: newUser.firstName[0] + newUser.lastName[0]
             })
         }).then(() => {
             dispatch({type: 'SIGNUP_SUCESS'})

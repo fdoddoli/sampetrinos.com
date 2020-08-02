@@ -5,13 +5,14 @@ import DashboardGirls from './components/dashboard/Girls/DashboardGirls';
 import DashboardBoys from './components/dashboard/Boys/DashboardBoys'; 
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
+import LandingPage from './components/layout/LandingPage';
 import ProfileDetails from './components/Profile/ProfileDetails';
 import {connect} from 'react-redux';
 
 class App extends Component{
   render(){
     const {profile} = this.props;
-    const dashboard = (profile.gender === 'Female') ? <Route exact path='/' component={DashboardGirls}/> : <Route exact path='/' component={DashboardBoys}/>;
+    const dashboard = (profile.gender === 'Female') ? <Route path='/dashboard' component={DashboardGirls}/> : <Route path='/dashboard' component={DashboardBoys}/>;
     //<Route exact path='/' component={DashboardBoys}/>
     //<Route exact path='/' component={DashboardGirls}/>
     return(
@@ -20,6 +21,7 @@ class App extends Component{
           <Navbar/>
           <Switch>
             {dashboard}
+            <Route exact path='/' component={LandingPage}/>
             <Route path='/signin' component={SignIn}/>
             <Route path='/signup' component={SignUp}/>
             <Route path='/profile-details' component={ProfileDetails}/>

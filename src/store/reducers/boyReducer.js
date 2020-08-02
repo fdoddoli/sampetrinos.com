@@ -17,6 +17,23 @@ const boyReducer = (state = initState, action) => {
         case 'LIKE_BOY_ERROR':
             console.log('like boy error', action.err);
             return state;
+        case 'LIKE_GIRL': 
+            console.log('liked girl', action.match);
+            return state;
+        case 'LIKE_GIRL_ERROR':
+            console.log('like girl error', action.err);
+            return state;
+        case 'DELETE_MATCH': 
+            console.log('match deleted', action.match);
+            return state;
+        case 'DELETE_MATCH_ERROR':
+            console.log('match deleted error', action.err);
+        case 'ADD_BOY_TO_BOYS_NOT_TO_DISPLAY': 
+            console.log('added boy to array', action.boy);
+            return state;
+        case 'ADD_BOY_TO_BOYS_NOT_TO_DISPLAY_ERROR':
+            console.log('added boy to array error', action.err);
+            return state;
         default:
             return state;
     }

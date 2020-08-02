@@ -11,8 +11,8 @@ class Notifications extends Component{
     }
 
     render(){
-        const matchLikeLength = this.props.boysWhoMatchWithMe.length;
-        const matchList = matchLikeLength ? (
+        const boysWhoMatchWithMeLength = this.props.boysWhoMatchWithMe.length;
+        const matchList = boysWhoMatchWithMeLength ? (
             this.props.boysWhoMatchWithMe.map(match => {
                 return(
                     <div class="collection">
@@ -39,7 +39,7 @@ class Notifications extends Component{
                         <div className="collapsible-header">
                         <i className="material-icons">people</i>
                         Check my matches
-                        <span className="badge red accent-3 white-text">2</span></div>
+                        <span className="badge button-blue white-text">{boysWhoMatchWithMeLength}</span></div>
                         <div className="collapsible-body">
                             {matchList}
                         </div>
@@ -52,25 +52,25 @@ class Notifications extends Component{
                     <div className="collection">
                         <a href="#!" className="collection-item notification-item avatar black-text">
                             <img className="circle" src="/img/test.JPG"/>
-                            <span className=" new badge red accent-3">1</span>
+                            <span className="badge button-blue white-text">1</span>
                             <p className="name-notifications">Alan</p>
                             <p className="grey-text">hahahaha sí</p>
                         </a>
                         <a href="#!" className="collection-item notification-item avatar black-text">
                             <img className="circle" src="/img/test.JPG"/>
-                            <span className=" new badge red accent-3">3</span>
+                            <span className="badge button-blue white-text">3</span>
                             <p className="name-notifications">Alan</p>
                             <p className="grey-text">hahahaha sí</p>
                         </a>
                         <a href="#!" className="collection-item notification-item avatar black-text">
                             <img className="circle" src="/img/test.JPG"/>
-                            <span className=" new badge red accent-3">5</span>
+                            <span className="badge button-blue white-text">5</span>
                             <p className="name-notifications">Alan</p>
                             <p className="grey-text">hahahaha sí</p>
                         </a>
                         <a href="#!" className="collection-item notification-item avatar black-text">
                             <img className="circle" src="/img/test.JPG"/>
-                            <span className=" new badge red accent-3">2</span>
+                            <span className="badge button-blue white-text">2</span>
                             <p className="name-notifications">Alan</p>
                             <p className="grey-text">hahahaha sí</p>
                         </a>

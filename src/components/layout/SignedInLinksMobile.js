@@ -3,14 +3,14 @@ import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {signOut} from '../../store/actions/authActions';
 
-const SignedInLinks = (props) => {
+const SignedInLinksMobile = (props) => {
 
     return(
         <div>
-            <ul className="right hide-on-med-and-down">
+            <ul className="right show-on-small">
                 <li><a onClick={props.signOut} className='blue-color-accent'>Log Out</a></li>
-                <li><NavLink to='/profile-details' className='btn btn-floating white blue-color-accent'>
-                    {props.profile.initials}
+                <li><NavLink to='/profile-details' className='blue-color-accent'>
+                    Profile
                 </NavLink></li>
             </ul>
         </div>
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
    
 }
 
-export default connect(null, mapDispatchToProps)(SignedInLinks);
+export default connect(null, mapDispatchToProps)(SignedInLinksMobile);
