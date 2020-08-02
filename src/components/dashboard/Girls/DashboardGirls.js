@@ -18,6 +18,7 @@ class DashboardGirls extends Component {
     firstName: "Rodrigo Miñaro",
     imgFileURL: "/img/test.JPG",
     actualChat: null,
+    school: "",
   };
 
   setActualChat = async (idx, userID) => {
@@ -32,25 +33,36 @@ class DashboardGirls extends Component {
   };
 
   handleClickToChangeBoy = (e) => {
-    const { boys } = this.props;
-    let boy = boys[Math.floor(Math.random() * boys.length)];
-    this.setState({
-      idBoy: boy.id,
-      firstName: boy.firstName,
-      imgFileURL: boy.imgFileURL,
-    });
-  };
-
-  handleClickToLikeBoy = (e) => {
     const { boys, auth } = this.props;
+    //Cuando hace un like o X, update el arreglo de boys not to display
+    //let boy = this.boyToDisplay();
     let boy = boys[Math.floor(Math.random() * boys.length)];
     this.setState({
       idBoy: boy.id,
       idGirl: auth.uid,
       firstName: boy.firstName,
       imgFileURL: boy.imgFileURL,
+      school: boy.school,
     });
+    //call dispatch to update array of boysNottoDisplay
+    //console.log(boy)
+    //this.props.addBoyToBoysNotToDisplay(boy);
+  };
+
+  handleClickToLikeBoy = (e) => {
     this.props.likeBoy(this.state);
+    const { boys, auth } = this.props;
+    //let boy = this.boyToDisplay();
+    let boy = boys[Math.floor(Math.random() * boys.length)];
+    this.setState({
+      idBoy: boy.id,
+      idGirl: auth.uid,
+      firstName: boy.firstName,
+      imgFileURL: boy.imgFileURL,
+      school: boy.school,
+    });
+    //call dispatch to update array of boysNottoDisplay
+    //this.props.addBoyToBoysNotToDisplay(boy);
   };
 
   render() {
@@ -62,9 +74,9 @@ class DashboardGirls extends Component {
         <div
           style={{
             padding: "0%",
-            width: "20",
+            width: "10",
             position: "absolute",
-            marginLeft: "38%",
+            marginLeft: "35%",
             backgroundColor: "white",
             borderTop: "3px solid lightgrey",
           }}
@@ -108,11 +120,17 @@ class DashboardGirls extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const users = state.firestore.ordered.users || state.boy.boys;
+  const gender = "Male";
+  const boys = users.filter((boy) => {
+    if (boy.gender === gender) return boy;
+  });
   return {
     auth: state.firebase.auth,
     matches: state.firestore.ordered.matches,
     profile: state.firebase.profile,
     users: state.firestore.data.users,
+    boys: boys,
   };
 };
 

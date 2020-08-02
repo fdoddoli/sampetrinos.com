@@ -15,9 +15,9 @@ class App extends Component {
 
     const dashboard =
       profile.gender === "Female" ? (
-        <Route exact path="/" component={DashboardGirls} />
+        <Route exact path="/dashboard" component={DashboardGirls} />
       ) : (
-        <Route exact path="/" component={DashboardBoys} />
+        <Route exact path="/dashboard" component={DashboardBoys} />
       );
     //<Route exact path='/' component={DashboardBoys}/>
     //<Route exact path='/' component={DashboardGirls}/>

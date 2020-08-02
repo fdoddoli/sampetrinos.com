@@ -30,9 +30,19 @@ class Notifications extends Component {
     }
 
     const likeList = likeListLength ? (
-      girlsWhoLikeMe.map(({ firstName, imgFileURL, id }, idx) => {
+      girlsWhoLikeMe.map(({ firstName, imgFileURL, id, school }, idx) => {
         return (
-          <div class="collection">
+          <div
+            class="collection"
+            onClick={() =>
+              this.props.handleClickShowGirlWhoLikedUser(
+                firstName,
+                imgFileURL,
+                id,
+                school
+              )
+            }
+          >
             <a
               href="#!"
               class="collection-item notification-item avatar black-text"
@@ -51,7 +61,7 @@ class Notifications extends Component {
     );
     const matchList = matchLikeLength ? (
       matches.map(({ idUserBoy, idUserGirl, lastMessage }, idx) => {
-        if (idUserBoy === profile.userID && lastMessage === "") {
+        if (idUserBoy === profile.userID) {
           return (
             <div class="collection" onClick={() => openChat(idx)}>
               <a
@@ -73,7 +83,6 @@ class Notifications extends Component {
         <p>No matches yet</p>
       </div>
     );
-
     return (
       <div className="notifications">
         <div className="Likes">
@@ -83,7 +92,7 @@ class Notifications extends Component {
               <div class="collapsible-header">
                 <i class="material-icons">favorite</i>
                 See who liked you
-                <span class="badge red accent-3 white-text">
+                <span class="badge button-blue white-text">
                   {likeListLength}
                 </span>
               </div>
@@ -99,7 +108,7 @@ class Notifications extends Component {
               <div class="collapsible-header">
                 <i class="material-icons">people</i>
                 Check my matches
-                <span class="badge red accent-3 white-text">
+                <span class="badge button-blue white-text">
                   {matchLikeLength}
                 </span>
               </div>
@@ -126,25 +135,29 @@ class Notifications extends Component {
                   if (idUserBoy === profile.userID && lastMessage !== "") {
                     let action;
                     if (lastSeenB < lMessageTimeG) {
-                      action = <span class=" new badge red accent-3">1</span>;
+                      action = <span class=" new button-blue">1</span>;
                     }
-                    return (
-                      <a
-                        href="#!"
-                        class="collection-item notification-item avatar black-text"
-                        onClick={() => openChat(idx)}
-                      >
-                        <img
-                          className="circle"
-                          src={users[idUserGirl].imgFileURL}
-                        />
-                        {action}
-                        <p className="name-notifications">
-                          {users[idUserGirl].firstName}
-                        </p>
-                        <p className="grey-text">{lastMessage}</p>
-                      </a>
-                    );
+                    if (users[idUserGirl] !== undefined)
+                      return (
+                        <a
+                          href="#!"
+                          class="collection-item notification-item avatar black-text"
+                          onClick={() => openChat(idx)}
+                        >
+                          <img
+                            className="circle"
+                            src={users[idUserGirl].imgFileURL}
+                          />
+                          {action}
+                          <p className="name-notifications">
+                            {users[idUserGirl].firstName}
+                          </p>
+                          <p className="grey-text">{lastMessage}</p>
+                        </a>
+                      );
+                    else {
+                      return null;
+                    }
                   }
                 }
               )}

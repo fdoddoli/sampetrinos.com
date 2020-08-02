@@ -11,9 +11,15 @@ import { likeGirl, deleteMatch } from "../../../store/actions/boyActions";
 class DashboardBoys extends Component {
   state = {
     actualChat: null,
+    firstName: "",
+    imgFileURL: "",
+    idUserGirl: "",
+    idUserBoy: "",
+    school: "",
   };
 
   setActualChat = (idx, userID) => {
+    this.handleClickStopShowingGirlWhoLikedUser();
     const { matches } = this.props;
     if (idx === -1) {
       this.setState({ actualChat: null });
@@ -23,22 +29,97 @@ class DashboardBoys extends Component {
     }
   };
 
+  handleClickShowGirlWhoLikedUser = (firstName, imgFileURL, id, school) => {
+    const { auth } = this.props;
+
+    this.setState({
+      firstName: firstName,
+      imgFileURL: imgFileURL,
+      idUserGirl: id,
+      idUserBoy: auth.uid,
+      school: school,
+    });
+  };
+  handleClickLikeGirlWhoLikedUser = (girl) => {
+    console.log(this.state);
+    const { myLikes } = this.props;
+    //Returns the match that this user wants to make true
+    const myFutureMatch = myLikes.filter((match) => {
+      if (
+        match.idUserBoy == this.state.idUserBoy &&
+        match.status == false &&
+        match.idUserGirl == this.state.idUserGirl
+      )
+        return match;
+    });
+    //makes match true
+    this.props.likeGirl(myFutureMatch);
+
+    //clear
+    this.handleClickStopShowingGirlWhoLikedUser();
+  };
+
+  handleClickStopShowingGirlWhoLikedUser = (e) => {
+    this.setState({
+      firstName: "",
+      imgFileURL: "",
+      idUserGirl: "",
+      school: "",
+    });
+  };
+
+  handleClickStopShowingGirlWhoLikedUserAndDeleteMatch = (e) => {
+    const { myLikes } = this.props;
+
+    //Returns the 'match'(status:false) that this user wants to delete
+    const matchIWantToDelete = myLikes.filter((match) => {
+      if (
+        match.idUserBoy == this.state.idUserBoy &&
+        match.status == false &&
+        match.idUserGirl == this.state.idUserGirl
+      )
+        return match;
+    });
+
+    //Deletes match
+    this.props.deleteMatch(matchIWantToDelete);
+
+    //clear
+    this.handleClickStopShowingGirlWhoLikedUser();
+  };
+
   render() {
     const { auth, girlsWhoLikeMe, matches, users, profile } = this.props;
     const { actualChat } = this.state;
-    if (!auth.uid) return <Redirect to="/signin" />;
-    let action;
-    if (actualChat === null) {
-      action = (
-        <div className="section center intro-text">
-          <h5 className="black-text intro-text">
-            Got any matches? Click on them to Start Chatting
-          </h5>
-          <i class="medium material-icons red-text text-accent-3">mood</i>
+    let rightDashboard;
+    if (this.state.firstName !== "") {
+      rightDashboard = (
+        <div className="card center dashboard-girl">
+          <div className="card-image  center">
+            <img className="responsive-img" src={this.state.imgFileURL} />
+          </div>
+          <div className="card-content">
+            <h5 className="boy-name">{this.state.firstName}</h5>
+            <p className="girl-school blue-text">{this.state.school}</p>
+            <button
+              className="waves-effect btn-floating waves-light btn-large white"
+              onClick={
+                this.handleClickStopShowingGirlWhoLikedUserAndDeleteMatch
+              }
+            >
+              <i class="large material-icons grey-text">close</i>
+            </button>
+            <button
+              className="waves-effect btn-floating waves-light btn-large white"
+              onClick={this.handleClickLikeGirlWhoLikedUser}
+            >
+              <i class="large material-icons blue-text text-darken-4">check</i>
+            </button>
+          </div>
         </div>
       );
-    } else {
-      action = (
+    } else if (actualChat !== null) {
+      rightDashboard = (
         <div
           style={{
             padding: "0%",
@@ -54,7 +135,17 @@ class DashboardBoys extends Component {
           />
         </div>
       );
+    } else {
+      rightDashboard = (
+        <div className="section center intro-text">
+          <h5 className="black-text intro-text">
+            Got any matches? Click on them to Start Chatting
+          </h5>
+          <i class="medium material-icons blue-color-accen">mood</i>
+        </div>
+      );
     }
+    if (!auth.uid) return <Redirect to="/signin" />;
     return (
       <div className="dashboard container">
         <div className="row">
@@ -65,10 +156,13 @@ class DashboardBoys extends Component {
               matches={matches}
               users={users}
               profile={profile}
+              // girlsWhoMatchWithMe={girlsWhoMatchWithMe}
+              handleClickShowGirlWhoLikedUser={
+                this.handleClickShowGirlWhoLikedUser
+              }
             />
           </div>
-
-          <div className="col s12 m7 l6">{action}</div>
+          <div className="col s12 m7 l6">{rightDashboard}</div>
         </div>
       </div>
     );
@@ -102,6 +196,7 @@ const mapStateToProps = (state) => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     matches: state.firestore.ordered.matches,
+    myLikes: myLikes,
   };
 };
 
