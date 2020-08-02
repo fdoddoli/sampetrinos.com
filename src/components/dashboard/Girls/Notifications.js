@@ -23,20 +23,24 @@ class Notifications extends Component {
     const matchList = matchLikeLength ? (
       matches.map(({ idUserBoy, idUserGirl, lastMessage }, idx) => {
         if (idUserGirl === profile.userID && lastMessage === "") {
-          return (
-            <div class="collection" onClick={() => openChat(idx)}>
-              <a
-                href="#!"
-                class="collection-item notification-item avatar black-text"
-              >
-                <img className="circle" src={users[idUserBoy].imgFileURL} />
-                <p className="name-notifications">
-                  {users[idUserBoy].firstName}
-                </p>
-              </a>
-              <div className="divider"></div>
-            </div>
-          );
+          if (users[idUserGirl] !== undefined)
+            return (
+              <div class="collection" onClick={() => openChat(idx)}>
+                <a
+                  href="#!"
+                  class="collection-item notification-item avatar black-text"
+                >
+                  <img className="circle" src={users[idUserBoy].imgFileURL} />
+                  <p className="name-notifications">
+                    {users[idUserBoy].firstName}
+                  </p>
+                </a>
+                <div className="divider"></div>
+              </div>
+            );
+          else {
+            return null;
+          }
         }
       })
     ) : (
