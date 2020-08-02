@@ -81,23 +81,27 @@ class Notifications extends Component {
                     if (lastSeenG < lMessageTimeB) {
                       action = <span class=" new badge red accent-3">1</span>;
                     }
-                    return (
-                      <a
-                        href="#!"
-                        class="collection-item notification-item avatar black-text"
-                        onClick={() => openChat(idx)}
-                      >
-                        <img
-                          className="circle"
-                          src={users[idUserBoy].imgFileURL}
-                        />
-                        {action}
-                        <p className="name-notifications">
-                          {users[idUserBoy].firstName}
-                        </p>
-                        <p className="grey-text">{lastMessage}</p>
-                      </a>
-                    );
+                    if (users[idUserGirl] !== undefined)
+                      return (
+                        <a
+                          href="#!"
+                          class="collection-item notification-item avatar black-text"
+                          onClick={() => openChat(idx)}
+                        >
+                          <img
+                            className="circle"
+                            src={users[idUserBoy].imgFileURL}
+                          />
+                          {action}
+                          <p className="name-notifications">
+                            {users[idUserBoy].firstName}
+                          </p>
+                          <p className="grey-text">{lastMessage}</p>
+                        </a>
+                      );
+                    else {
+                      return null;
+                    }
                   }
                 }
               )}
