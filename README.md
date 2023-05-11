@@ -11,6 +11,9 @@ You can use Sampetrinos to:
 # Tech Stack
 Bootstrap, React JS, Firebase
 
+# View Proyect
+You can access the platform at www.sampetrinos.com
+
 # Running the App
 In the project directory, you can run:
 
